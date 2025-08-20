@@ -1,0 +1,86 @@
+<div *ngIf="loading" class="text-center py-16 text-gray-500 text-xl animate-pulse">
+  Loading product details...
+</div>
+
+<div *ngIf="!loading && product" 
+  class="max-w-7xl mx-auto px-6 lg:px-12 py-12 grid grid-cols-1 md:grid-cols-2 gap-12">
+
+  <!-- Product Gallery -->
+  <div class="flex flex-col items-center space-y-6">
+    <div class="relative group bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-10 shadow-xl overflow-hidden">
+      <img 
+        [src]="product.image" 
+        alt="{{ product.title }}" 
+        class="w-full h-[450px] object-contain transition-transform duration-500 group-hover:scale-110"
+      />
+
+      <!-- Floating Price Card -->
+      <div class="absolute top-4 right-4 bg-white/80 backdrop-blur-md px-6 py-3 rounded-2xl shadow-lg border border-gray-200">
+        <span class="text-2xl font-bold text-blue-600">{{ product.price | currency }}</span>
+      </div>
+    </div>
+
+    <!-- Thumbnails (optional if you have multiple images) -->
+    <div class="flex space-x-4">
+      <img [src]="product.image" alt="thumb" 
+           class="w-20 h-20 object-cover rounded-xl border hover:scale-110 transition cursor-pointer"/>
+      <img [src]="product.image" alt="thumb" 
+           class="w-20 h-20 object-cover rounded-xl border hover:scale-110 transition cursor-pointer"/>
+    </div>
+  </div>
+
+  <!-- Product Info -->
+  <div class="flex flex-col justify-between">
+    <!-- Title & Description -->
+    <div>
+      <h1 class="text-5xl font-extrabold text-gray-800 leading-snug mb-4">{{ product.title }}</h1>
+      <p class="text-gray-600 text-lg leading-relaxed mb-8">{{ product.description }}</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="space-y-6">
+
+      <!-- Quantity & Add to Cart -->
+      <div class="flex items-center space-x-6">
+        
+        <!-- Quantity Selector -->
+        <div class="flex items-center bg-gray-100 border rounded-full shadow-inner">
+          <button (click)="decreaseQuantity()" 
+            class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-l-full font-bold transition">−</button>
+          <span class="px-6 text-lg font-semibold text-gray-800">{{ quantity }}</span>
+          <button (click)="increaseQuantity()" 
+            class="px-4 py-2 text-gray-700 hover:bg-gray-200 rounded-r-full font-bold transition">+</button>
+        </div>
+
+        <!-- Add to Cart -->
+        <button
+          (click)="addToCart()"
+          class="flex items-center justify-center space-x-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-10 py-3 rounded-full font-semibold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 active:scale-95 transition-all duration-300"
+        >
+          <span class="text-2xl">🛒</span>
+          <span>Add to Cart</span>
+        </button>
+      </div>
+
+      <!-- Extra Actions -->
+      <div class="flex items-center space-x-6 mt-4 text-gray-500">
+        <button class="hover:text-pink-500 transition"><span class="text-xl">❤️</span></button>
+        <button class="hover:text-blue-500 transition"><span class="text-xl">🔗</span></button>
+        <button class="hover:text-yellow-500 transition"><span class="text-xl">⭐</span></button>
+      </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="mt-10 border-t pt-6">
+      <div class="flex space-x-8 text-gray-600 font-medium mb-4">
+        <button class="hover:text-blue-600 transition">Description</button>
+        <button class="hover:text-blue-600 transition">Reviews</button>
+        <button class="hover:text-blue-600 transition">Shopping</button>
+      </div>
+      <p class="text-gray-500 leading-relaxed">
+        {{ product.description }}  
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tristique velit sed sapien placerat, a dictum nisl bibendum.
+      </p>
+    </div>
+  </div>
+</div>
